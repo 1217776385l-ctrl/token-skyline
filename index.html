@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-theme="dawn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Skyline — your AI coding tokens, in 3D</title>
+<meta name="description" content="Turn your AI coding agent's token usage (ZCode, Claude Code, Codex CLI) into an interactive 3D city. 100% local, zero dependencies, STL export for 3D printing.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23d97706'/%3E%3Cstop offset='1' stop-color='%23fbbf24'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%230d1326'/%3E%3Crect x='16' y='54' width='14' height='32' rx='3' fill='url(%23g)'/%3E%3Crect x='43' y='26' width='14' height='60' rx='3' fill='url(%23g)'/%3E%3Crect x='70' y='42' width='14' height='44' rx='3' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <header>
+    <div class="brand">
+      <h1>
+        <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#d97706"/><stop offset="1" stop-color="#fbbf24"/>
+            </linearGradient>
+          </defs>
+          <rect width="100" height="100" rx="24" fill="rgba(120,130,160,0.14)"/>
+          <rect x="16" y="52" width="15" height="34" rx="3" fill="url(#lg)"/>
+          <rect x="42.5" y="22" width="15" height="64" rx="3" fill="url(#lg)"/>
+          <rect x="69" y="38" width="15" height="48" rx="3" fill="url(#lg)"/>
+        </svg>
+        Token <span>Skyline</span>
+      </h1>
+      <p class="tagline" id="tagline"></p>
+    </div>
+    <div class="controls">
+      <div class="metrics" id="metricButtons" role="tablist"></div>
+      <div class="toggles">
+        <button id="themeBtn" class="ghost" title="Theme">🌙</button>
+        <button id="colorModeBtn" class="ghost" title=""></button>
+        <button id="rotateBtn" class="ghost on" title=""></button>
+        <button id="langBtn" class="ghost" title="切换语言">中</button>
+        <button id="stlBtn" class="primary">STL ⭳</button>
+      </div>
+    </div>
+  </header>
+
+  <div id="statsBar">
+    <div class="stat"><label id="lblGrand"></label><b id="grandTotal">—</b></div>
+    <div class="stat"><label id="lblToday"></label><b id="todayTotal">—</b></div>
+    <div class="stat"><label id="lblCalls"></label><b id="grandReq">—</b></div>
+    <div class="stat"><label id="lblCache"></label><b id="cacheShare">—</b></div>
+    <div class="sources" id="sourceChips"></div>
+    <div class="updated" id="updatedAt"></div>
+  </div>
+
+  <main id="stage">
+    <div id="tooltip" hidden></div>
+    <div id="loading">
+      <div class="loader-bars"><span></span><span></span><span></span></div>
+      <p id="loadingText">Loading your city…</p>
+    </div>
+    <div id="emptyState" hidden>
+      <div class="empty-card">
+        <div class="empty-emoji">🏙️</div>
+        <h2 id="emptyTitle"></h2>
+        <p id="emptyBody"></p>
+        <pre id="emptyPaths"></pre>
+      </div>
+    </div>
+  </main>
+
+  <aside id="panel" hidden>
+    <button id="panelClose" aria-label="close">✕</button>
+    <div id="panelBody"></div>
+  </aside>
+
+  <div id="modal" hidden>
+    <div class="modal-card">
+      <h2 id="mTitle"></h2>
+      <div class="mrow">
+        <label id="mScaleLabel"></label>
+        <select id="mScale">
+          <option value="1000000" selected>1M tokens = 1 mm</option>
+          <option value="2000000">2M tokens = 1 mm</option>
+          <option value="5000000">5M tokens = 1 mm</option>
+          <option value="10000000">10M tokens = 1 mm</option>
+        </select>
+      </div>
+      <div class="mrow">
+        <label id="mPlateLabel"></label>
+        <input type="checkbox" id="mPlate" checked>
+      </div>
+      <p id="mEstimate" class="estimate"></p>
+      <div class="mbtns">
+        <button id="mCancel" class="ghost"></button>
+        <button id="mExport" class="primary"></button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="sig">Made by LYU Minglei</span>
+    <span class="copy" id="footCopy"></span>
+  </footer>
+
+</div>
+<script src="lib/three.min.js"></script>
+<script src="lib/OrbitControls.js"></script>
+<script src="lib/CopyShader.js"></script>
+<script src="lib/LuminosityHighPassShader.js"></script>
+<script src="lib/EffectComposer.js"></script>
+<script src="lib/RenderPass.js"></script>
+<script src="lib/ShaderPass.js"></script>
+<script src="lib/UnrealBloomPass.js"></script>
+<script src="lib/STLExporter.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
